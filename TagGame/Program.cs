@@ -1,74 +1,26 @@
-﻿// void PlaceTag(int[] pole)
-// {
-//    int[] tags = new int[16];
+﻿int[,] PlaceTag(int[,] pole)
+{
+   int[] tags = new int[16];
 
+   tags[0] = new Random().Next(0, 16);
+   for (int i = 1; i < 16; i++)
+   {
+      tags[i] = new Random().Next(0, 16);
+      for (int j = 0; j < i; j++)
+      {
+         if (tags[i] == tags[j])
+         {
+            i--;
+         }
+      }
+   }
+   for (int i = 0; i < 16; i++)
+   {
+      pole[i / 4, i % 4] = tags[i];
+   }
+   return pole;
+}
 
-//    for (int i = 0; i < tags.Length; i++)
-//    {
-//       int tmp = new Random().Next(1, 16);
-//       for (int j = 0; j < i; j++)
-//       {
-//          if (tmp == tags[j])
-//          {
-//             tmp = new Random().Next(1, 16);
-
-//          }
-//          else
-//          {
-//             tags[j] = tmp;
-//             break;
-//          }
-//       }
-//    }
-
-
-//    for (int i = 0; i < 16; i++)
-//    {
-//       Console.Write(tags[i] + " ");
-//    }
-//    Console.WriteLine();
-//}
-// int[,] GoGame(int[,] tags)
-// {
-//    int xPos = 0, yPos = 0;
-//    int tag = tags[xPos, yPos];
-//    for (int i = 0; i < tags.GetLength(0); i++)
-//    {
-//       for (int j = 0; j < tags.GetLength(1); j++)
-//       {
-//          if (tags[i, j] == 0)
-//          {
-//             xPos = i;
-//             yPos = j;
-
-//          }
-//       }
-//    }
-
-//    tag = tags[xPos, yPos];
-//    char key = Convert.ToChar(Console.Read());
-//    if (key == 'w' && key == 'W')
-//    {
-//       tags[xPos, yPos] = tags[xPos, yPos - 1];
-//       tags[xPos, yPos - 1] = tag;
-//    }
-//    if (key == 's' && key == 'S')
-//    {
-//       tags[xPos, yPos] = tags[xPos, yPos + 1];
-//       tags[xPos, yPos + 1] = tag;
-//    }
-//    if (key == 'a' && key == 'A')
-//    {
-//       tags[xPos, yPos] = tags[xPos - 1, yPos];
-//       tags[xPos - 1, yPos] = tag;
-//    }
-//    if (key == 'd' && key == 'D')
-//    {
-//       tags[xPos, yPos] = tags[xPos + 1, yPos];
-//       tags[xPos + 1, yPos] = tag;
-//    }
-//    return tags;
-// }
 
 //GAME
 void PrintPole(int[,] pole)
@@ -84,12 +36,13 @@ void PrintPole(int[,] pole)
 }
 
 
-int[,] pole = {
-   {15,9,4,11},
-   {8,3,1,12},
-   {2,6,10,5},
-   {7,14,0,13}};
-
+// int[,] pole = {
+//    {15,9,4,11},
+//    {8,3,1,12},
+//    {2,6,10,5},
+//    {7,14,0,13}};
+int[,] pole = new int[4, 4];
+pole = PlaceTag(pole);
 int xPos = 0, yPos = 0;
 int tag = pole[xPos, yPos];
 for (int i = 0; i < pole.GetLength(0); i++)
